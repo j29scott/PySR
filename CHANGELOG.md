@@ -1,5 +1,108 @@
 # Changelog
 
+## [2.0.0-beta.1](https://github.com/j29scott/PySR/compare/v2.5.0...v2.0.0-beta.1) (2026-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* the deprecated positional and `function_symbols=...` forms of `TemplateExpressionSpec` are removed; pass explicit `combine=`, `expressions=`, and `variable_names=` keywords.
+* checkpoints written before this change (schema 2, from v2.0.0-beta.1 and earlier betas) fail to load with an explicit schema error rather than restoring incomplete state.
+* enable annealing by default ([#1283](https://github.com/j29scott/PySR/issues/1283))
+* remove ParametricExpressionSpec ([#1277](https://github.com/j29scott/PySR/issues/1277))
+* switch to SlurmClusterManager.jl for slurm allocations ([#794](https://github.com/j29scott/PySR/issues/794))
+
+### Features
+
+* accept sample_weight as an alias for weights in fit ([e2a159b](https://github.com/j29scott/PySR/commit/e2a159b615b8258c192608cccde90a19fcc31563))
+* add an optional invalid value hook ([#1361](https://github.com/j29scott/PySR/issues/1361)) ([f3420e8](https://github.com/j29scott/PySR/commit/f3420e873c4e86bacdfeb1e5f4caa6a52845ddd4))
+* add TypeSpec definitions for methods on the generated type ([#1359](https://github.com/j29scott/PySR/issues/1359)) ([4c61b90](https://github.com/j29scott/PySR/commit/4c61b906f5f2f225959f84a8d0b77c79e292e36f))
+* enable concurrent GC sweeping by default ([#1379](https://github.com/j29scott/PySR/issues/1379)) ([5f14395](https://github.com/j29scott/PySR/commit/5f14395eee3438f93ee39b56d07ddcf971769057))
+* expose new plugin interface + upgrade to v2.0.0-beta.3 ([#1282](https://github.com/j29scott/PySR/issues/1282)) ([e20c880](https://github.com/j29scott/PySR/commit/e20c88015cc4294ea41d52cc2e9345bed7f1ebac))
+* expose search tracing on PySRRegressor ([#1347](https://github.com/j29scott/PySR/issues/1347)) ([e694439](https://github.com/j29scott/PySR/commit/e694439d498ae7ce6cbf0fe8ab40949944016416))
+* release the GIL during the search ([#1330](https://github.com/j29scott/PySR/issues/1330)) ([b15bf62](https://github.com/j29scott/PySR/commit/b15bf623d2ae44b1296288fc01b601d96de856b2))
+* remove ParametricExpressionSpec ([#1277](https://github.com/j29scott/PySR/issues/1277)) ([d5f0bb0](https://github.com/j29scott/PySR/commit/d5f0bb0b4b1e5d13463ba988c3ff15fba00bfe13))
+* require keyword arguments for TemplateExpressionSpec ([e2a159b](https://github.com/j29scott/PySR/commit/e2a159b615b8258c192608cccde90a19fcc31563))
+* seed template parameters through guesses ([#1352](https://github.com/j29scott/PySR/issues/1352)) ([fe41c38](https://github.com/j29scott/PySR/commit/fe41c3858972822064b055aa476404b168cb996a))
+* set precompile_float64=false preference for SymbolicRegression ([#1279](https://github.com/j29scott/PySR/issues/1279)) ([b89f920](https://github.com/j29scott/PySR/commit/b89f9209d8ead59974bcff8f0f295b71c4a8fb7c))
+* stop autoloading the juliacall IPython extension by default ([#1325](https://github.com/j29scott/PySR/issues/1325)) ([b3f91a1](https://github.com/j29scott/PySR/commit/b3f91a17cb75da8b2a5a520bf157f7491dd74e4c))
+* stop searches gracefully on interrupt instead of killing the kernel ([#1310](https://github.com/j29scott/PySR/issues/1310)) ([5bd53f6](https://github.com/j29scott/PySR/commit/5bd53f662ee1d3516f084d556f7871e2299411a0))
+* stop searches gracefully on Windows interrupts ([#1329](https://github.com/j29scott/PySR/issues/1329)) ([e180079](https://github.com/j29scott/PySR/commit/e1800797e2e2b7e88e455f2667484e6a37ab89f8))
+* support custom value types via TypeSpec ([#1280](https://github.com/j29scott/PySR/issues/1280)) ([e2a159b](https://github.com/j29scott/PySR/commit/e2a159b615b8258c192608cccde90a19fcc31563))
+* support guesses with custom types ([#1316](https://github.com/j29scott/PySR/issues/1316)) ([6115158](https://github.com/j29scott/PySR/commit/61151582bb21a58eefbccca9c979ce1fbe85f3fc))
+* switch to SlurmClusterManager.jl for slurm allocations ([#794](https://github.com/j29scott/PySR/issues/794)) ([49f44a4](https://github.com/j29scott/PySR/commit/49f44a420c3c08c4406c8c9685ba9d34d7773b23))
+
+
+### Bug Fixes
+
+* avoid duplicate PyPI attestations ([#1292](https://github.com/j29scott/PySR/issues/1292)) ([71242e8](https://github.com/j29scott/PySR/commit/71242e8420e90db7be4f8ff064ab3dc9df2c52d2))
+* bump the checkpoint schema to version 3 ([e2a159b](https://github.com/j29scott/PySR/commit/e2a159b615b8258c192608cccde90a19fcc31563))
+* convert num_features dict keys to Julia Symbols ([#1209](https://github.com/j29scott/PySR/issues/1209)) ([8aa59b8](https://github.com/j29scott/PySR/commit/8aa59b82bfbe29daba59e38c2c063d8184c9dd0b)), closes [#811](https://github.com/j29scott/PySR/issues/811)
+* correct type in elementwise loss validation ([#1184](https://github.com/j29scott/PySR/issues/1184)) ([912c4c2](https://github.com/j29scott/PySR/commit/912c4c22e47428e5209067d1aa1c30cf52ed4f11))
+* **docker:** use Debian Trixie base ([#1356](https://github.com/j29scott/PySR/issues/1356)) ([567ed69](https://github.com/j29scott/PySR/commit/567ed690c88dd54c3851579701bd1039112f8f95))
+* enable annealing by default ([#1283](https://github.com/j29scott/PySR/issues/1283)) ([f4dc86b](https://github.com/j29scott/PySR/commit/f4dc86b21df97724f0e5efc8f9bc4ce34b8814d4))
+* migrate tracing to JSON with SymbolicRegression 2.4 ([#1354](https://github.com/j29scott/PySR/issues/1354)) ([203f13c](https://github.com/j29scott/PySR/commit/203f13c492d8bf7d3ccbb00e1dc5375df2380c8a))
+* preserve custom JAX mappings in checkpoints ([#1199](https://github.com/j29scott/PySR/issues/1199)) ([0d78783](https://github.com/j29scott/PySR/commit/0d78783b8aca3c3e42e8001397ee3a5a819dc6dd))
+* rebuild Julia-backed equation columns after unpickling ([e2a159b](https://github.com/j29scott/PySR/commit/e2a159b615b8258c192608cccde90a19fcc31563))
+* require juliacall 0.9.29+ and Python 3.10+ ([#1335](https://github.com/j29scott/PySR/issues/1335)) ([b87067a](https://github.com/j29scott/PySR/commit/b87067affa242d050ed124801872ea589f2323d0))
+* respect tempdir for temporary equation files ([#1207](https://github.com/j29scott/PySR/issues/1207)) ([beaa405](https://github.com/j29scott/PySR/commit/beaa4053a1352789176b1b3bae356007dcbebabd))
+* restore Python executable for JuliaCall 0.9.35 ([#1362](https://github.com/j29scott/PySR/issues/1362)) ([61b9027](https://github.com/j29scott/PySR/commit/61b90272450f248cab237da27475d178501fcade))
+
+
+### Dependencies
+
+* raise jax, ipython, ipykernel, and pytest-cov ceilings ([#1307](https://github.com/j29scott/PySR/issues/1307)) ([3f37488](https://github.com/j29scott/PySR/commit/3f37488da78d735df9bee37bf3a23bf01f98ee1c))
+* raise juliacall ceiling to 0.9.36 ([#1312](https://github.com/j29scott/PySR/issues/1312)) ([494798e](https://github.com/j29scott/PySR/commit/494798e76511aed9db1f57078c6ec8366c6e06fc))
+* require JuliaCall 0.9.36 and remove workaround ([#1380](https://github.com/j29scott/PySR/issues/1380)) ([51aea3e](https://github.com/j29scott/PySR/commit/51aea3e13a43b5acf3bee53643bfdfe76db05d68))
+
+
+### Documentation
+
+* add agent skill for using PySR effectively ([#1264](https://github.com/j29scott/PySR/issues/1264)) ([fdedcc8](https://github.com/j29scott/PySR/commit/fdedcc892db4ae2fed289601718074ec45a596d0))
+* add angular coefficients paper ([da6d2d2](https://github.com/j29scott/PySR/commit/da6d2d27f782156e5378ecd0255474cad5dc684d))
+* add biomass pyrolysis paper ([ccb473e](https://github.com/j29scott/PySR/commit/ccb473ec715f353e32729f6921352a572f6ca71f))
+* add dark energy symbolic regression paper ([da9ad80](https://github.com/j29scott/PySR/commit/da9ad80bc0187ca65f12b331d919c322264ea874))
+* add human mobility models paper ([f47c4d2](https://github.com/j29scott/PySR/commit/f47c4d27496659ea97cc72ab9cfe138964c3ea53))
+* add implied volatility showcase paper ([#1172](https://github.com/j29scott/PySR/issues/1172)) ([c435527](https://github.com/j29scott/PySR/commit/c435527ccddb89a7a4e2835fb064679b3ed3e537))
+* add microbial growth models paper ([f7c72fb](https://github.com/j29scott/PySR/commit/f7c72fbc3ba13ed6e7e5f69f946c3c57d0a2d755))
+* add paper showcase entries ([9283914](https://github.com/j29scott/PySR/commit/9283914523b52e5e992f4238d7ca6692de7825d1))
+* add PDE discovery example and skill guidance ([#1311](https://github.com/j29scott/PySR/issues/1311)) ([459a720](https://github.com/j29scott/PySR/commit/459a720bd72cb0bd02e96ba7b877460d4a2739c2))
+* add PySR v1 to v2 migration guide ([#1302](https://github.com/j29scott/PySR/issues/1302)) ([b0bb321](https://github.com/j29scott/PySR/commit/b0bb321451fc8a489c711a5a7c37bff03fbb50c9))
+* add s-stars chaos paper ([cfc4907](https://github.com/j29scott/PySR/commit/cfc490762cac17ea248cfb83555c261779fa61e9))
+* add skin friction estimation paper ([8ec43f0](https://github.com/j29scott/PySR/commit/8ec43f082e2b449d7dece4cb5ba2372915b81a7c))
+* add two research showcase papers ([#1323](https://github.com/j29scott/PySR/issues/1323)) ([7727b01](https://github.com/j29scott/PySR/commit/7727b0179a97114de317f136c15b1f83bb7ceff0))
+* add yawed wind turbines paper ([e1dc986](https://github.com/j29scott/PySR/commit/e1dc986ef096b3c0c14e7f7f4429aee6b730f429))
+* clarify guesses and template parameters ([#1353](https://github.com/j29scott/PySR/issues/1353)) ([0caa20a](https://github.com/j29scott/PySR/commit/0caa20a9d7828c2a90622a013627fa6257ab4c50))
+* compress agent skill ([#1375](https://github.com/j29scott/PySR/issues/1375)) ([57ed43a](https://github.com/j29scott/PySR/commit/57ed43ad65651c7a681f75a23ef0e58f72a32e1b))
+* correct AdaptiveMutationWeightsPlugin default state ([#1332](https://github.com/j29scott/PySR/issues/1332)) ([9909624](https://github.com/j29scott/PySR/commit/990962428fa1c946c0a9c27ab7e12db80dec867c))
+* document complexity_mapping, guesses in SKILL ([#1372](https://github.com/j29scott/PySR/issues/1372)) ([b566bdb](https://github.com/j29scott/PySR/commit/b566bdb42f8eb169141b8659410d5735db49bf2f))
+* expand examples and split into topic pages ([#1350](https://github.com/j29scott/PySR/issues/1350)) ([49773c3](https://github.com/j29scott/PySR/commit/49773c30d43fb2d968d698605f72224489f74445))
+* explain agent skill installation in README ([#1377](https://github.com/j29scott/PySR/issues/1377)) ([258872e](https://github.com/j29scott/PySR/commit/258872e309c469f2078675bd724611057e4d38c5))
+* fix &lt;details&gt; headings ([#1374](https://github.com/j29scott/PySR/issues/1374)) ([8507021](https://github.com/j29scott/PySR/commit/85070216ec3012c27f7e196143e2ba113b7d7a9e))
+* fix broken links, version menu, same-tab nav, and favicon ([#1388](https://github.com/j29scott/PySR/issues/1388)) ([e5b5454](https://github.com/j29scott/PySR/commit/e5b5454a4f31f6902af52dff7a4c23c961d6dbf2))
+* generate legacy top-level redirects from the stable release ([#1346](https://github.com/j29scott/PySR/issues/1346)) ([5114e66](https://github.com/j29scott/PySR/commit/5114e668bc2f45386113f702abf93772fd5d9f66))
+* link Julia docs to the pinned backend version ([#1370](https://github.com/j29scott/PySR/issues/1370)) ([aecba32](https://github.com/j29scott/PySR/commit/aecba3215592e8e85f49fbc193a0a032284c0073))
+* point Julia documentation links to julia.pysr.ai ([#1387](https://github.com/j29scott/PySR/issues/1387)) ([e999da7](https://github.com/j29scott/PySR/commit/e999da72531bcd3975789c6670939d36d5970186))
+* redirect nested documentation pages through stable ([#1348](https://github.com/j29scott/PySR/issues/1348)) ([24cc669](https://github.com/j29scott/PySR/commit/24cc669edf7bdc881a42b0e33d58675e2e6ba4fc))
+* replace python feature card ([#1303](https://github.com/j29scott/PySR/issues/1303)) ([b99a314](https://github.com/j29scott/PySR/commit/b99a314da625d3bce5a9dc25e7618a8681a8ffc4))
+* replace README header video with a logo hero ([#1342](https://github.com/j29scott/PySR/issues/1342)) ([8ffc78a](https://github.com/j29scott/PySR/commit/8ffc78ab1851e4bcf9e51ec2d7cdd4755e41b881))
+* restore accurate Python API feature card ([#1368](https://github.com/j29scott/PySR/issues/1368)) ([876d3bb](https://github.com/j29scott/PySR/commit/876d3bba0a05c1e51eb08b6c3aff7601dd4e06f9))
+* rewrite the examples for TypeSpec and template expressions ([e2a159b](https://github.com/j29scott/PySR/commit/e2a159b615b8258c192608cccde90a19fcc31563))
+* serve documentation at pysr.ai ([#1384](https://github.com/j29scott/PySR/issues/1384)) ([7873cfa](https://github.com/j29scott/PySR/commit/7873cfafddc1cf501da8a14ce18be8270c76388a))
+* tweak badges ([#1344](https://github.com/j29scott/PySR/issues/1344)) ([21e2ed5](https://github.com/j29scott/PySR/commit/21e2ed552ffa4233e711539be12d9610ec724c40))
+* update contributors list ([#1286](https://github.com/j29scott/PySR/issues/1286)) ([10b3637](https://github.com/j29scott/PySR/commit/10b36376b2866e09e8382669df20e4a7a1539ec5))
+* update README and documentation to the new PySR logo ([#1357](https://github.com/j29scott/PySR/issues/1357)) ([11d1ae2](https://github.com/j29scott/PySR/commit/11d1ae2d95b8467fede423b1ea4121e264cf193e))
+* update SKILL.md to v2 ([#1321](https://github.com/j29scott/PySR/issues/1321)) ([d64ef62](https://github.com/j29scott/PySR/commit/d64ef62b48926b1871dd0930cc5ee21d6618814c))
+* update the stable redirect on every release ([#1328](https://github.com/j29scott/PySR/issues/1328)) ([82c5d70](https://github.com/j29scott/PySR/commit/82c5d70404d011a785590c5db353397171e1d938))
+* use Float32 literals in custom loss example ([#1276](https://github.com/j29scott/PySR/issues/1276)) ([2bd7db2](https://github.com/j29scott/PySR/commit/2bd7db238a70773c9b4882259b940f3dec8c8591))
+
+
+### Miscellaneous Chores
+
+* release 2.0.0-beta.1 ([9cfb720](https://github.com/j29scott/PySR/commit/9cfb720fb15f7dd6c5942bedce927d645dc98eda))
+* release 2.0.0-beta.1 ([55834ba](https://github.com/j29scott/PySR/commit/55834ba1c06bc233ef6181971e47bc48b0604069))
+* release 2.0.0b1 ([2b8d8d3](https://github.com/j29scott/PySR/commit/2b8d8d30988aa6e8f4b8086f2149bd7e7d9f8f65))
+* release 2.0.0b1 ([37711d4](https://github.com/j29scott/PySR/commit/37711d41d77460ce14ed798d56b1db3b31a57916))
+
 ## [2.5.0](https://github.com/astroautomata/PySR/compare/v2.4.1...v2.5.0) (2026-09-20)
 
 
